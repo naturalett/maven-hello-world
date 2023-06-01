@@ -26,6 +26,9 @@ jobs:
       - run:
           name: Test
           command: mvn test
+      - run:
+          name: Deploy
+          command: mvn -s settings.xml deploy
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
