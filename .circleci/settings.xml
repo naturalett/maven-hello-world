@@ -5,8 +5,8 @@
     <servers>
         <server>
             <id>maven-hello-world</id>
-            <username>${secrets.USER_JETBRAINS}</username>
-            <password>${secrets.PASS_JETBRAINS}</password>
+            <username>${env.USER_JETBRAINS}</username>
+            <password>${env.PASS_JETBRAINS}</password>
         </server>
     </servers>
 </settings>
