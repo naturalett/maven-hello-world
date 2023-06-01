@@ -21,14 +21,14 @@ jobs:
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
+          command: mvn clean install
       # Then run your tests!
       - run:
           name: Test
           command: mvn test
       - run:
           name: Deploy
-          command: mvn -s .circleci/settings.xml deploy
+          command: mvn -s .circleci/settings.xml -DskipTests deploy
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
