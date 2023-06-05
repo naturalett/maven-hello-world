@@ -103,7 +103,7 @@
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
         <!-- <url>git@github.com:naturalett/maven-hello-world.git</url> -->
-        <url>scm:git:https://github.com/naturalett/maven-hello-world.git</url>
+        <url>https://github.com/naturalett/maven-hello-world.git</url>
 
 
         <!-- <connection>scm:git:https://github.com/naturalett/maven-hello-world.git</connection>
