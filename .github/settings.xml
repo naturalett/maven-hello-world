@@ -5,8 +5,8 @@
     <servers>
         <server>
             <id>ossrh</id>
-            <username>${secrets.USER_SONATYPE}</username>
-            <password>${secrets.PASS_SONATYPE}</password>
+            <username>${{ secrets.USER_SONATYPE }}</username>
+            <password>${{ secrets.PASS_SONATYPE }}</password>
         </server>
     </servers>
 </settings>
