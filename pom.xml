@@ -4,7 +4,7 @@
    <groupId>io.github.naturalett</groupId>
    <artifactId>my-app</artifactId>
    <packaging>jar</packaging>
-   <version>1.0.2</version>
+   <version>1.0.3</version>
    <name>${project.groupId}:${project.artifactId}</name>
    <description>A lightweight Java hello world</description>
    <url>https://github.com/naturalett/maven-hello-world</url>
@@ -120,7 +120,6 @@
                               <arg>--pinentry-mode</arg>
                               <arg>loopback</arg>
                            </gpgArguments>
-                          <gpgPassphrase>${{ secrets.MAVEN_GPG_PASSPHRASE }}</gpgPassphrase>
                         </configuration>
                      </execution>
                   </executions>
