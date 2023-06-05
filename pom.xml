@@ -121,6 +121,7 @@
                               <arg>--pinentry-mode</arg>
                               <arg>loopback</arg>
                            </gpgArguments>
+                          <gpgPassphrase>${{ secrets.MAVEN_GPG_PASSPHRASE }}</gpgPassphrase>
                         </configuration>
                      </execution>
                   </executions>
