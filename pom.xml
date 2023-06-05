@@ -94,11 +94,17 @@
          <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
       </repository>
    </distributionManagement>
-   <scm>
+   <!-- <scm>
       <connection>scm:git:https://github.com/naturalett/maven-hello-world.git</connection>
       <developerConnection>scm:git:ssh://github.com:naturalett/maven-hello-world.git</developerConnection>
       <url>https://github.com/naturalett/maven-hello-world/tree/main</url>
-   </scm>
+   </scm> -->
+    <scm>
+        <connection>scm:git:https://github.com/naturalett/maven-hello-world.git</connection>
+        <developerConnection>scm:git:https://github.com/naturalett/maven-hello-world.git</developerConnection>
+        <url>scm:git:https://github.com/naturalett/maven-hello-world.git</url>
+        <tag>HEAD</tag>
+  </scm>
    <profiles>
       <profile>
          <id>ci-cd</id>
