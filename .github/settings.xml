@@ -5,8 +5,9 @@
     <servers>
         <server>
             <id>ossrh</id>
-            <username>naturalett</username>
-            <password>V7xPXa386f!vQkt</password>
+            <username>${secrets.USER_SONATYPE}</username>
+            <password>${secrets.PASS_SONATYPE}</password>
         </server>
     </servers>
 </settings>
+
