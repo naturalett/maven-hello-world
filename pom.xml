@@ -101,7 +101,7 @@
    </scm>
    <profiles>
       <profile>
-         <id>deploy</id>
+         <id>ci-cd</id>
          <build>
             <plugins>
                <plugin>
