@@ -23,7 +23,7 @@ jobs:
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
     - name: Deploy with Maven
-      run: mvn -X clean deploy javadoc:jar source:jar -Pdeploy -s .github/workflow/settings.xml
+      run: mvn -X clean deploy javadoc:jar source:jar -Pdeploy -s .github/settings.xml
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
