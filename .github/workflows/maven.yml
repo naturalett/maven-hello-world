@@ -38,27 +38,11 @@ jobs:
       run: |
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
-    # - name: Increment Version
-    #   if:  ${{ inputs.releaseVersion && inputs.developmentVersion }}
-    #   run: |
-    #     mvn -X build-helper:parse-version versions:set -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
-    #     git add .
-    #     git commit -m "updated version in pom.xml"
-    #     git push
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
-    - name: Release with Maven params
-      # if:  ${{ inputs.releaseVersion && inputs.developmentVersion }}
+    - name: Release with Maven
       run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
       env:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
-    # - name: Release with Maven
-    #   if:  ${{ !(inputs.releaseVersion && inputs.developmentVersion) }}
-    #   run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
-    #   env:
-    #     OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-    #     OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
     - name: Deploy with Maven
       run: mvn -X clean javadoc:jar source:jar deploy -Pci-cd
       env:
@@ -67,3 +51,13 @@ jobs:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    - name: Publish to Central Repository
+      run: |
+        mvn \
+          --no-transfer-progress \
+          --batch-mode \
+          -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
+          clean deploy
+      env:
+        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
