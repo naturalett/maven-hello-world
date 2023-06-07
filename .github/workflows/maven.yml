@@ -41,6 +41,7 @@ jobs:
     - name: Release with Maven
       run: |
         gpg --list-secret-keys --keyid-format=long
+        cat /home/runner/.gnupg/pubring.kbx
         mvn -X -B --batch-mode \
           clean \
           release:prepare \
