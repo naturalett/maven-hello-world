@@ -47,6 +47,7 @@ jobs:
           javadoc:jar \
           source:jar \
           deploy \
+          -Pci-cd \
           -Dusername=naturalett \
           -s settings.xml \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
