@@ -40,7 +40,7 @@ jobs:
         git config user.name "GitHub Actions"
     - name: Release with Maven
       run: |
-        mvn -X -B \
+        mvn -X --batch-mode \
           clean \
           release:prepare \
           release:perform \
