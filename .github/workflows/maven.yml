@@ -45,6 +45,8 @@ jobs:
         git add .
         git commit -m "updated version in pom.xml"
         git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: Release with Maven
       run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s .github/settings.xml
     - name: Deploy with Maven
