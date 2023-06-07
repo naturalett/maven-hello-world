@@ -56,7 +56,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: Deploy with Maven
       run: |
-        mvn -U -X clean javadoc:jar source:jar -Dgpg.passphrase="${{ secrets.MAVEN_GPG_PASSPHRASE }}" -Pci-cd deploy
+        mvn -U -X clean javadoc:jar source:jar -Pci-cd deploy
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
