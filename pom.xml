@@ -4,7 +4,7 @@
 	<groupId>io.github.naturalett</groupId>
 	<artifactId>my-app</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.64-SNAPSHOT</version>
+	<version>0.2.63-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A lightweight Java hello world</description>
 	<url>https://github.com/naturalett/maven-hello-world</url>
@@ -79,7 +79,7 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
-			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
