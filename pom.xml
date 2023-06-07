@@ -4,7 +4,7 @@
 	<groupId>io.github.naturalett</groupId>
 	<artifactId>my-app</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.63-SNAPSHOT</version>
+	<version>0.2.64-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A lightweight Java hello world</description>
 	<url>https://github.com/naturalett/maven-hello-world</url>
