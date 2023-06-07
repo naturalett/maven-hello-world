@@ -16,7 +16,7 @@ on:
       developmentVersion:
         description: "Default version to use for new local working copy."
         required: true
-        default: "T"
+        default: ""
 
 jobs:
   build:
