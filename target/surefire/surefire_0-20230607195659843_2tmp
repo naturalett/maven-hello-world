@@ -1,0 +1,5 @@
+#surefire_0
+#Wed Jun 07 19:56:59 IDT 2023
+basedir=/Users/lidor.ettinger/repos/private/maven-hello-world
+localRepository=/Users/lidor.ettinger/.m2/repository
+maven.repo.local=/Users/lidor.ettinger/.m2/repository
