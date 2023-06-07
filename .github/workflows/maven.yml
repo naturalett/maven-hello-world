@@ -54,7 +54,7 @@ jobs:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
     - name: Release with Maven
-      if:  ${{ not(inputs.releaseVersion && inputs.developmentVersion) }}
+      if:  ${{ !(inputs.releaseVersion && inputs.developmentVersion) }}
       run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
       env:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
