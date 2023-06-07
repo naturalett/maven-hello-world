@@ -12,11 +12,11 @@ on:
       releaseVersion:
         description: "Default version to use when preparing a release."
         required: true
-        default: "X.Y.Z"
+        default: ""
       developmentVersion:
         description: "Default version to use for new local working copy."
         required: true
-        default: "X.Y.Z-SNAPSHOT"
+        default: "T"
 
 jobs:
   build:
@@ -48,17 +48,17 @@ jobs:
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: Release with Maven params
-      if:  ${{ inputs.releaseVersion && inputs.developmentVersion }}
+      # if:  ${{ inputs.releaseVersion && inputs.developmentVersion }}
       run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
       env:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
-    - name: Release with Maven
-      if:  ${{ !(inputs.releaseVersion && inputs.developmentVersion) }}
-      run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
-      env:
-        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+    # - name: Release with Maven
+    #   if:  ${{ !(inputs.releaseVersion && inputs.developmentVersion) }}
+    #   run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
+    #   env:
+    #     OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+    #     OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
     - name: Deploy with Maven
       run: mvn -X clean javadoc:jar source:jar deploy -Pci-cd
       env:
