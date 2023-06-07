@@ -59,7 +59,7 @@ jobs:
         MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: Deploy with Maven
-      run: mvn -X clean javadoc:jar source:jar deploy -Dgpg.passphrase="dsahjdsf7#bsfauy2" -Pci-cd
+      run: mvn -X clean javadoc:jar source:jar deploy -Pci-cd
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
