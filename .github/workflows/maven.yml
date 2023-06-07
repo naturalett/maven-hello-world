@@ -38,31 +38,45 @@ jobs:
       run: |
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
-    - name: Release with Maven
+    - name: build artifact
+      run: mvn clean package
+    - name: Create release
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        artifacts: "${{ github.workspace }}/target/*.jar"
+        token: ${{ secrets.TOKEN }}
+    - name: Publish to the Maven Central Repository
       run: |
-        mvn -X --batch-mode \
-          release:clean \
-          release:prepare \
-          release:perform \
-          -Dusername=naturalett \
-          -s settings.xml \
-          -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
-          -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
-      env:
-        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
-        MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-        MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-    - name: Deploy with Maven
-      run: |
-        mvn -U -X clean javadoc:jar source:jar -Pci-cd deploy
-      env:
-        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-        MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-        MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        mvn \
+          --no-transfer-progress \
+          --batch-mode \
+          deploy
+    # - name: Release with Maven
+    #   run: |
+    #     mvn -X --batch-mode \
+    #       release:clean \
+    #       release:prepare \
+    #       release:perform \
+    #       -Dusername=naturalett \
+    #       -s settings.xml \
+    #       -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
+    #       -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
+    #   env:
+    #     OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+    #     OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+    #     MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+    #     MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+    #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    # - name: Deploy with Maven
+    #   run: |
+    #     mvn -U -X clean javadoc:jar source:jar -Pci-cd deploy
+    #   env:
+    #     MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+    #     MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+    #     MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+    #     MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+    #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
     # - name: Publish to Central Repository
     #   run: |
     #     mvn \
