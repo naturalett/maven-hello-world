@@ -4,7 +4,7 @@
 	<groupId>io.github.naturalett</groupId>
 	<artifactId>my-app</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.71-SNAPSHOT</version>
+	<version>0.2.71</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A lightweight Java hello world</description>
 	<url>https://github.com/naturalett/maven-hello-world</url>
@@ -90,7 +90,7 @@
 		<url>https://github.com/naturalett/maven-hello-world.git</url>
 		<connection>scm:git:https://github.com/naturalett/maven-hello-world.git</connection>
 		<developerConnection>scm:git:https://github.com/naturalett/maven-hello-world.git</developerConnection>
-		<tag>my-app-0.2.56</tag>
+		<tag>0.2.71</tag>
 	</scm>
 	<profiles>
 		<profile>
@@ -109,6 +109,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6.0</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -117,6 +118,7 @@
 									<goal>sign</goal>
 								</goals>
 								<configuration>
+                  <useReleaseProfile>true</useReleaseProfile>
 									<gpgArguments>
 										<arg>--pinentry-mode</arg>
 										<arg>loopback</arg>
