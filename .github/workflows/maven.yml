@@ -43,11 +43,10 @@ jobs:
         mvn -X --batch-mode \
           release:clean \
           release:prepare \
-          release:perform \
           javadoc:jar \
           source:jar \
+          release:perform \
           -Dusername=naturalett \
-          -Dpassword=${{ secrets.TOKEN }} \
           -s settings.xml \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
@@ -56,6 +55,7 @@ jobs:
         OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
     # - name: Deploy with Maven
     #   run: mvn -X clean javadoc:jar source:jar deploy -Pci-cd
     #   env:
