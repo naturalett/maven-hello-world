@@ -38,10 +38,6 @@ jobs:
       run: |
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
-    - name: Install gpg secret key
-      run: |
-        # Install gpg secret key
-        cat <(echo -e "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}") | gpg --batch --import
     - name: Release with Maven
       run: |
         mvn -X --batch-mode \
@@ -59,7 +55,10 @@ jobs:
         MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: Deploy with Maven
-      run: mvn -X clean javadoc:jar source:jar deploy -Dgpg.passphrase="${{ secrets.MAVEN_GPG_PASSPHRASE }}" -Pci-cd
+      run: |
+        # Install gpg secret key
+        cat <(echo -e "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}") | gpg --batch --import
+        mvn -X clean javadoc:jar source:jar -Dgpg.passphrase="${{ secrets.MAVEN_GPG_PASSPHRASE }}" -Pci-cd deploy
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
