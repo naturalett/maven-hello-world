@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.naturalett</groupId>
 	<artifactId>my-app</artifactId>
 	<packaging>jar</packaging>
-	<version>0.2.26-SNAPSHOT</version>
+	<version>0.2.26</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>A lightweight Java hello world</description>
 	<url>https://github.com/naturalett/maven-hello-world</url>
@@ -106,7 +104,7 @@
 		<url>https://github.com/naturalett/maven-hello-world.git</url>
 		<connection>scm:git:https://github.com/naturalett/maven-hello-world.git</connection>
 		<developerConnection>scm:git:https://github.com/naturalett/maven-hello-world.git</developerConnection>
-		<tag>my-app-0.2.22</tag>
+		<tag>my-app-0.2.26</tag>
 	</scm>
 	<profiles>
 		<profile>
