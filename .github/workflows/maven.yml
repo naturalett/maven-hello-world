@@ -39,7 +39,7 @@ jobs:
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
     - name: Release with Maven
-      run: mvn -X --batch-mode release:clean release:prepare release:perform javadoc:jar source:jar -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
+      run: mvn -X --batch-mode release:clean release:prepare release:perform javadoc:jar source:jar -Pci-cd -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
       env:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
