@@ -41,12 +41,12 @@ jobs:
     - name: Release with Maven
       run: |
         mvn -X --batch-mode \
-          -Pci-cd \
           release:clean \
           release:prepare \
           release:perform \
           javadoc:jar \
           source:jar \
+          -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -Dusername=naturalett \
           -Dpassword=${{ secrets.TOKEN }} \
           -s settings.xml \
