@@ -38,16 +38,16 @@ jobs:
     #   run: |
     #     git config user.email "actions@github.com"
     #     git config user.name "GitHub Actions"
-    - name: Increment Version
-      run: |
-        mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT versions:commit -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
-        git config user.email "actions@github.com"
-        git config user.name "GitHub Actions"
-        git add .
-        git commit -m "updated version in pom.xml"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    # - name: Increment Version
+    #   run: |
+    #     mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT versions:commit -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
+    #     git config user.email "actions@github.com"
+    #     git config user.name "GitHub Actions"
+    #     git add .
+    #     git commit -m "updated version in pom.xml"
+    #     git push
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: Release with Maven
       run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
       env:
