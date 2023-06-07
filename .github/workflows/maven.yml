@@ -38,16 +38,23 @@ jobs:
       run: |
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
-    - name: Increment Version
+    # - name: Increment Version
+    #   if:  ${{ inputs.releaseVersion && inputs.developmentVersion }}
+    #   run: |
+    #     mvn -X build-helper:parse-version versions:set -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
+    #     git add .
+    #     git commit -m "updated version in pom.xml"
+    #     git push
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    - name: Release with Maven params
       if:  ${{ inputs.releaseVersion && inputs.developmentVersion }}
-      run: |
-        mvn build-helper:parse-version versions:set -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} versions:commit -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
-        git add .
-        git commit -m "updated version in pom.xml"
-        git push
+      run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
     - name: Release with Maven
+      if:  ${{ inputs.releaseVersion == "" && inputs.developmentVersion == "" }}
       run: mvn -X --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=${{ secrets.TOKEN }} -s settings.xml
       env:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
