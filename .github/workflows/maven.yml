@@ -41,6 +41,7 @@ jobs:
     - name: Release with Maven
       run: |
         mvn -X --batch-mode \
+          -Pci-cd \
           release:clean \
           release:prepare \
           release:perform \
