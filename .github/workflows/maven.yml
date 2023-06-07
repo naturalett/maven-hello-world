@@ -40,6 +40,7 @@ jobs:
         git config user.name "GitHub Actions"
     - name: Release with Maven
       run: |
+        cat <(echo -e "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}") | gpg --batch --import
         mvn -X --batch-mode \
           clean \
           release:prepare \
