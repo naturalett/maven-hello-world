@@ -4,7 +4,7 @@
    <groupId>io.github.naturalett</groupId>
    <artifactId>my-app</artifactId>
    <packaging>jar</packaging>
-   <version>1.0.7</version>
+   <version>1.0.8-SNAPSHOT</version>
    <name>${project.groupId}:${project.artifactId}</name>
    <description>A lightweight Java hello world</description>
    <url>https://github.com/naturalett/maven-hello-world</url>
@@ -117,7 +117,7 @@
       <url>https://github.com/naturalett/maven-hello-world.git</url> <!-- URL HTTP de clone do projeto -->
       <connection>scm:git:https://github.com/naturalett/maven-hello-world.git</connection> <!-- URL HTTP de clone do projeto -->
       <developerConnection>scm:git:https://github.com/naturalett/maven-hello-world.git</developerConnection> <!-- URL HTTP de clone do projeto -->
-      <tag>my-app-1.0.7</tag>
+      <tag>@{project.version}</tag>
   </scm>
    <profiles>
       <profile>
