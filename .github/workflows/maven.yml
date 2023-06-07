@@ -40,6 +40,7 @@ jobs:
         git config user.name "GitHub Actions"
     - name: Release with Maven
       run: |
+        gpg --list-secret-keys --keyid-format=long
         mvn -X -B --batch-mode \
           clean \
           release:prepare \
