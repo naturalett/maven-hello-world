@@ -45,6 +45,7 @@ jobs:
         mvn -X --batch-mode \
           release:clean \
           release:prepare \
+          release:perform \
           -Dusername=naturalett \
           -s settings.xml \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
