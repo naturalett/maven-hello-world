@@ -52,13 +52,12 @@ jobs:
       run: |
         java --version
         mvn --version
-        mvn -X -B -U \
+        mvn -X -B -U deploy \
           -Pci-cd \
           release:prepare \
+          release:perform \
           javadoc:jar \
           source:jar \
-          release:perform \
-          deploy \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -Dusername=naturalett \
           -s settings.xml \
