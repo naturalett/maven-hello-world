@@ -42,8 +42,12 @@ jobs:
         git config user.name "GitHub Actions"
     - name: Release with Maven
       run: |
-        mvn -X -B \
+        mvn -X -B -U \
           clean \
+          release:prepare \
+          release:perform \
+          javadoc:jar \
+          source:jar \
           deploy \
           -Pci-cd \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
