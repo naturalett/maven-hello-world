@@ -95,12 +95,6 @@
 	<profiles>
 		<profile>
 			<id>ci-cd</id>
-      <activation>
-        <property>
-            <name>performRelease</name>
-            <value>true</value>
-        </property>
-      </activation>
 			<build>
 				<plugins>
 					<plugin>
