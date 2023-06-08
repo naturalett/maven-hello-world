@@ -53,6 +53,7 @@ jobs:
         java --version
         mvn --version
         mvn -X -B -U \
+          clean \
           release:prepare \
           release:perform \
           javadoc:jar \
