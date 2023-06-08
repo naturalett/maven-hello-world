@@ -42,19 +42,13 @@ jobs:
         git config user.name "GitHub Actions"
     - name: Release with Maven
       run: |
-        gpg --list-secret-keys --keyid-format=long
-        cat /home/runner/.gnupg/pubring.kbx
-        mvn -X -B --batch-mode \
+        mvn -X -B \
           clean \
-          release:prepare \
-          release:perform \
-          javadoc:jar \
-          source:jar \
           deploy \
-          -Prelease \
-          -s settings.xml \
+          -Pci-cd \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -Dusername=naturalett \
+          -s settings.xml \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
       env:
@@ -63,9 +57,6 @@ jobs:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        SIGN_KEY_PASS: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        OSSRH_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
     # - name: build artifact
     #   run: mvn clean package
     # - name: Release with Maven
