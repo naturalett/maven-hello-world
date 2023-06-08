@@ -56,7 +56,6 @@ jobs:
           javadoc:jar \
           source:jar \
           -s settings.xml \
-          -DautoReleaseAfterClose=${{ steps.release.outputs.auto_release }} \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
@@ -64,6 +63,7 @@ jobs:
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        AUTO_RELEASE_AFTER_CLOSE: ${{ steps.release.outputs.auto_release }}
     # - name: build artifact
     #   run: mvn clean package
     # - name: Release with Maven
