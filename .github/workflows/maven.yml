@@ -64,9 +64,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
     - name: build artifact
       run: |
-        mvn deploy \
+        mvn -X -B -U \
           javadoc:jar \
           source:jar \
+          deploy \
           -Pci-cd \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -Dusername=naturalett \
