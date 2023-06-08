@@ -38,20 +38,14 @@ jobs:
       with:
         gpg_private_key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-    - name: Check secrets presence
-      id: checksecrets
-      shell: bash
+    - name: Check if to release
+      id: release
       run: |
         if [ "${{ github.event.inputs.releaseVersion }}" != "" && "${{ github.event.inputs.developmentVersion }}" != "" ]; then
           echo "auto_release=true" >> $GITHUB_OUTPUT
         else
           echo "auto_release=false" >> $GITHUB_OUTPUT
         fi
-      env:
-        SECRET: ${{ secrets.SECRET}}
-    - name: run step if secret is present
-      if: (steps.checksecrets.outputs.secretspresent == 'YES')
-      run: echo secret is present
     - name: Release with Maven
       run: |
         mvn -X -B -U \
@@ -61,7 +55,7 @@ jobs:
           javadoc:jar \
           source:jar \
           -s settings.xml \
-          -Dpublish.auto-release=${{ env.auto_release }} \
+          -Dpublish.auto-release=${{ steps.release.outputs.auto_release }} \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
