@@ -56,9 +56,9 @@ jobs:
           clean \
           release:prepare \
           release:perform \
+          deploy \
           javadoc:jar \
           source:jar \
-          deploy \
           -Pci-cd \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -Dusername=naturalett \
