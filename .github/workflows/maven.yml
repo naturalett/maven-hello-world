@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
     inputs:
       releaseVersion:
-        description: "Default version to use when preparing a release."
+        description: "Define the release version"
         required: true
         default: ""
       developmentVersion:
-        description: "Default version to use for new local working copy."
+        description: "Define the snapshot version"
         required: true
         default: ""
 
@@ -38,7 +38,7 @@ jobs:
       with:
         gpg_private_key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-    - name: Check if to release
+    - name: Verify whether a release is ready
       id: release
       shell: bash
       run: |
@@ -49,7 +49,7 @@ jobs:
         fi
     - name: Release with Maven
       run: |
-        mvn -X -B -U \
+        mvn -B -U \
           -Pci-cd \
           release:prepare \
           release:perform \
@@ -64,40 +64,3 @@ jobs:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         AUTO_RELEASE_AFTER_CLOSE: ${{ steps.release.outputs.auto_release }}
-    # - name: build artifact
-    #   run: mvn clean package
-    # - name: Release with Maven
-    #   run: |
-    #     mvn -X --batch-mode \
-    #       release:clean \
-    #       release:prepare \
-    #       release:perform \
-    #       -Dusername=naturalett \
-    #       -s settings.xml \
-    #       -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
-    #       -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }}
-    #   env:
-    #     OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-    #     OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
-    #     MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-    #     MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-    #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
-    # - name: Deploy with Maven
-    #   run: |
-    #     mvn -U -X clean javadoc:jar source:jar -Pci-cd deploy
-    #   env:
-    #     MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-    #     MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-    #     MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-    #     MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-    #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
-    # - name: Publish to Central Repository
-    #   run: |
-    #     mvn \
-    #       --no-transfer-progress \
-    #       --batch-mode \
-    #       clean deploy
-    #   env:
-    #     MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-    #     MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-    #     MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
