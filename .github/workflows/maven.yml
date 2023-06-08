@@ -54,9 +54,9 @@ jobs:
         mvn --version
         mvn -X -B -U \
           clean \
+          release:prepare \
           javadoc:jar \
           source:jar \
-          release:prepare \
           release:perform \
           deploy \
           -Pci-cd \
