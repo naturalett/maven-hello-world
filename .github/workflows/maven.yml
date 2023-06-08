@@ -42,6 +42,8 @@ jobs:
         git config user.name "GitHub Actions"
     - name: Release with Maven
       run: |
+        java --version
+        mvn --version
         mvn -X -B -U \
           clean \
           release:prepare \
