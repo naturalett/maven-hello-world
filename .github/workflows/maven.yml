@@ -52,7 +52,7 @@ jobs:
       run: |
         java --version
         mvn --version
-        mvn -X -B -U deploy \
+        mvn -X -B -U \
           -Pci-cd \
           release:prepare \
           release:perform \
@@ -63,7 +63,8 @@ jobs:
           -s settings.xml \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
-          -Dpassword=${{ secrets.TOKEN }}
+          -Dpassword=${{ secrets.TOKEN }} \
+          deploy
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
