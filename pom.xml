@@ -97,7 +97,7 @@
             <version.maven-release-plugin>3.0.0-M7</version.maven-release-plugin>
             <version.maven-gpg-plugin>3.0.1</version.maven-gpg-plugin>
             <version.nexus-staging-maven-plugin>1.6.13</version.nexus-staging-maven-plugin>
-			<autoRelease>true</autoRelease>
+			<publish.auto-release>true</publish.auto-release>
          </properties>
          <activation>
             <property>
@@ -116,7 +116,7 @@
                      <configuration>
                         <serverId>ossrh</serverId>
                         <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
-                        <autoReleaseAfterClose>${autoRelease}</autoReleaseAfterClose>
+                        <autoReleaseAfterClose>${publish.auto-release}</autoReleaseAfterClose>
                      </configuration>
                   </plugin>
                </plugins>
