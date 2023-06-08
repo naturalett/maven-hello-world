@@ -17,9 +17,14 @@ Login to your [sonatype](https://s01.oss.sonatype.org/) account to release the v
 
 ## Documentation
 
-Well explained blog of [How to Publish Artifacts to Maven Central](https://dzone.com/articles/how-to-publish-artifacts-to-maven-central). \
-Your Sonatype account [link](https://s01.oss.sonatype.org/)\
-Your Jira ticket login [link](https://issues.sonatype.org/)
+* Well explained blog of [How to Publish Artifacts to Maven Central](https://dzone.com/articles/how-to-publish-artifacts-to-maven-central)
+* Your Sonatype account [link](https://s01.oss.sonatype.org/)
+* Your Jira ticket login [link](https://issues.sonatype.org/)
+* Github action to import gpg:
+    * [link1](https://github.com/actions/setup-java/blob/ddb82ce8a6ecf5ac3e80c3184839e6661546e4aa/docs/advanced-usage.md?plain=1#L315)
+    * [link2](https://github.com/hashicorp/ghaction-import-gpg)
+    * [link3](https://github.com/crazy-max/ghaction-import-gpg/tree/master)
+
 
 ## Secrets
 * **MAVEN_GPG_PRIVATE_KEY** - Take it from the private.gpg
@@ -130,10 +135,3 @@ mvn -X -B clean javadoc:jar source:jar deploy -Dgpg.passphrase="<PASSPHRASE_GPG>
 
 - [@naturalett](https://www.github.com/naturalett)
 
-
-
-
-
-https://github.com/actions/setup-java/blob/ddb82ce8a6ecf5ac3e80c3184839e6661546e4aa/docs/advanced-usage.md?plain=1#L315
-https://github.com/hashicorp/ghaction-import-gpg
-https://github.com/crazy-max/ghaction-import-gpg/tree/master
