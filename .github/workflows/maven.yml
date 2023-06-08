@@ -56,7 +56,7 @@ jobs:
           javadoc:jar \
           source:jar \
           -s settings.xml \
-          -Dpublish.auto-release=${{ steps.release.outputs.auto_release }} \
+          -DautoReleaseAfterClose=${{ steps.release.outputs.auto_release }} \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \

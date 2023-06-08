@@ -115,7 +115,7 @@
                      <configuration>
                         <serverId>ossrh</serverId>
                         <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
-                        <autoReleaseAfterClose>${publish.auto-release}</autoReleaseAfterClose>
+                        <autoReleaseAfterClose>${autoReleaseAfterClose}</autoReleaseAfterClose>
                      </configuration>
                   </plugin>
                </plugins>
