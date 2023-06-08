@@ -53,22 +53,12 @@ jobs:
         java --version
         mvn --version
         mvn -X -B -U \
-          clean \
+          -Pci-cd \
           release:prepare \
           javadoc:jar \
           source:jar \
-          release:perform
-      env:
-        MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-    - name: build artifact
-      run: |
-        mvn -X -B -U \
-          javadoc:jar \
-          source:jar \
+          release:perform \
           deploy \
-          -Pci-cd \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -Dusername=naturalett \
           -s settings.xml \
@@ -79,6 +69,8 @@ jobs:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    # - name: build artifact
+    #   run: mvn clean package
     # - name: Release with Maven
     #   run: |
     #     mvn -X --batch-mode \
