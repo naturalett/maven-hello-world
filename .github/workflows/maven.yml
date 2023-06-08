@@ -51,7 +51,7 @@ jobs:
           javadoc:jar \
           source:jar \
           deploy \
-          -Pci-cd \
+          -Prelease \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -Dusername=naturalett \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
