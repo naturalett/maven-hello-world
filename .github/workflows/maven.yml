@@ -47,6 +47,7 @@ jobs:
           javadoc:jar \
           source:jar \
           -s settings.xml \
+          -DautoRelease="true" \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
