@@ -41,7 +41,7 @@ jobs:
     - name: Check if to release
       id: release
       run: |
-        if [ "${{ github.event.inputs.releaseVersion }}" != "" && "${{ github.event.inputs.developmentVersion }}" != "" ]; then
+        if ["${{ github.event.inputs.releaseVersion }}" != ""] && ["${{ github.event.inputs.developmentVersion }}" != ""]; then
           echo "auto_release=true" >> $GITHUB_OUTPUT
         else
           echo "auto_release=false" >> $GITHUB_OUTPUT
