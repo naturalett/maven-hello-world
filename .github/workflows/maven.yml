@@ -54,11 +54,11 @@ jobs:
         mvn --version
         mvn -X -B -U \
           clean \
+          javadoc:jar \
+          source:jar \
           release:prepare \
           release:perform \
           deploy \
-          javadoc:jar \
-          source:jar \
           -Pci-cd \
           -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
           -Dusername=naturalett \
