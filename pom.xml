@@ -33,17 +33,10 @@
          <version>4.11</version>
          <scope>test</scope>
       </dependency>
-      <dependency>
-         <groupId>org.codehaus.mojo</groupId>
-         <artifactId>build-helper-maven-plugin</artifactId>
-         <version>3.2.0</version>
-         <type>maven-plugin</type>
-      </dependency>
    </dependencies>
    <build>
       <finalName>my-app</finalName>
       <pluginManagement>
-         <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
          <plugins>
             <plugin>
                <groupId>org.apache.maven.plugins</groupId>
@@ -93,11 +86,6 @@
    <profiles>
       <profile>
          <id>ci-cd</id>
-         <properties>
-            <version.maven-release-plugin>3.0.0-M7</version.maven-release-plugin>
-            <version.maven-gpg-plugin>3.0.1</version.maven-gpg-plugin>
-            <version.nexus-staging-maven-plugin>1.6.13</version.nexus-staging-maven-plugin>
-         </properties>
          <activation>
             <property>
                <name>gpg.passphrase</name>
@@ -110,7 +98,7 @@
                   <plugin>
                      <groupId>org.sonatype.plugins</groupId>
                      <artifactId>nexus-staging-maven-plugin</artifactId>
-                     <version>${version.nexus-staging-maven-plugin}</version>
+                     <version>1.6.13</version>
                      <extensions>true</extensions>
                      <configuration>
                         <serverId>ossrh</serverId>
@@ -121,9 +109,6 @@
                </plugins>
             </pluginManagement>
             <plugins>
-               <plugin>
-                  <artifactId>maven-gpg-plugin</artifactId>
-               </plugin>
                <plugin>
                   <groupId>org.sonatype.plugins</groupId>
                   <artifactId>nexus-staging-maven-plugin</artifactId>
