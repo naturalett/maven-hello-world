@@ -3,6 +3,10 @@ name: 'CI'
 on:
   repository_dispatch:
     types: [my-event]
+  workflow_run:
+    workflows: ["Java CI with Maven"]
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.event.pull_request.number }}-ci
