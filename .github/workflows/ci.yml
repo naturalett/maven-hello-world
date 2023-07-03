@@ -1,16 +1,12 @@
 # https://github.com/marketplace/actions/release-changelog-builder
 name: 'CI'
-on:
-  push:
-    tags:
-      - '*'
-  pull_request:
+on: workflow_call
 
 concurrency:
   group: ${{ github.event.pull_request.number }}-ci
   cancel-in-progress: true
 
-jobs:          
+jobs:
   release:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
