@@ -12,29 +12,29 @@ concurrency:
   group: ${{ github.event.pull_request.number }}-ci
   cancel-in-progress: true
 
-jobs:          
+jobs:  
   release:
-    if: ${{ github.event.client_payload.auto_release }}
+    if: github.event.client_payload.auto_release == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        if: ${{ github.event.client_payload.auto_release }}
+        if: github.event.client_payload.auto_release == 'true'
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: "Echo github event"
-        if: ${{ github.event.client_payload.auto_release }}
+        if: github.event.client_payload.auto_release == 'true'
         id: github_event
         run: |
           echo "${{ github.event.client_payload.auto_release }}"
       - name: "Get Previous Tag"
-        if: ${{ github.event.client_payload.auto_release }}
+        if: github.event.client_payload.auto_release == 'true'
         id: git_tag
         run: |
           git fetch -a
           echo "fromTag=$(git describe --abbrev=0 --tags $(git log -2 --format='%H' | head -2 | sed '1d'))" >> "$GITHUB_ENV"
       - name: "Build Changelog"
-        if: ${{ github.event.client_payload.auto_release }}
+        if: github.event.client_payload.auto_release == 'true'
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v2
         with:
@@ -43,7 +43,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Create Release"
-        if: ${{ github.event.client_payload.auto_release }}
+        if: github.event.client_payload.auto_release == 'true'
         uses: softprops/action-gh-release@v1
         with:
           body: ${{steps.github_release.outputs.changelog}}
