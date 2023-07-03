@@ -1,8 +1,9 @@
 # https://github.com/marketplace/actions/release-changelog-builder
 name: 'CI'
 on:
-  repository_dispatch:
-    types: [my-event]
+  push:
+    tags:
+      - '*.*.*'
 
 concurrency:
   group: ${{ github.event.pull_request.number }}-ci
