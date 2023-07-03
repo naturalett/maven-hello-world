@@ -47,6 +47,9 @@ jobs:
         else
           echo "auto_release=false" >> $GITHUB_OUTPUT
         fi
+    - name: Workflow release tag
+      if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""
+      event-type: my-event
     - name: Release with Maven
       run: |
         mvn -B -U \
