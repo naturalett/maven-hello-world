@@ -52,6 +52,7 @@ jobs:
       if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""
       with:
         event-type: my-event
+        client-payload: '{"auto_release": "${{ steps.release.outputs.auto_release }}"}'
     - name: Release with Maven
       run: |
         mvn -B -U \
