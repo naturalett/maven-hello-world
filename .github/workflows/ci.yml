@@ -10,13 +10,17 @@ concurrency:
 
 jobs:          
   release:
-    if: ${{ github.event.client_payload.auto_release }} == true
+    if: "${{ github.event.client_payload.auto_release }}" == true
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: "Echo github event"
+        id: github_event
+        run: |
+          echo "${{ github.event.client_payload.auto_release }}"
       - name: "Get Previous Tag"
         id: git_tag
         run: |
