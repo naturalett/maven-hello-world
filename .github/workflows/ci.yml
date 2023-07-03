@@ -21,7 +21,7 @@ jobs:
         id: release_tag
         run: |
           LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_OUTPUT
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_OUTPUT
           git checkout $LATEST_TAG
       - name: "Echo github event"
         id: github_event
