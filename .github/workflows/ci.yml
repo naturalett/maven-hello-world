@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - '*'
-  repository_dispatch:
-    types: [my-event]
 
 concurrency:
   group: ${{ github.event.pull_request.number }}-ci
