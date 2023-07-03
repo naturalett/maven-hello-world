@@ -1,0 +1,41 @@
+# https://github.com/marketplace/actions/release-changelog-builder
+name: 'CI'
+on:
+  push:
+    tags:
+      - '*'
+  pull_request:
+
+concurrency:
+  group: ${{ github.event.pull_request.number }}-ci
+  cancel-in-progress: true
+
+jobs:          
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: "Get Previous Tag"
+        id: git_tag
+        run: |
+          git fetch -a
+          echo "fromTag=$(git describe --abbrev=0 --tags $(git log -2 --format='%H' | head -2 | sed '1d'))" >> "$GITHUB_ENV"
+      - name: "Build Changelog"
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v2
+        with:
+          configuration: ".github/configs/configuration_repo.json"
+          fromTag: ${{env.fromTag}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Create Release"
+        uses: softprops/action-gh-release@v1
+        with:
+          body: ${{steps.github_release.outputs.changelog}}
+          prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-b') || contains(github.ref, '-a') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
