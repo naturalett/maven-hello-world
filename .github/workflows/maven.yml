@@ -64,6 +64,12 @@ jobs:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         AUTO_RELEASE_AFTER_CLOSE: ${{ steps.release.outputs.auto_release }}
+    - name: Copy Artifacts to Workspace
+      id: copy_artifacts
+      shell: bash
+      run: |
+        mkdir -p ${{ github.workspace }}/target
+        cp -r ./target/* ${{ github.workspace }}/target/
 
   release-preparation:
     needs: build
@@ -80,12 +86,12 @@ jobs:
       shell: bash
       run: |
         ls -al ./target/
-        mv ./target/*.*:${{ env.artifact_name }}.jar ./target/${{ env.artifact_name }}.jar
+        mv .${{ github.workspace }}/target/*.*:${{ env.artifact_name }}.jar .${{ github.workspace }}/target/${{ env.artifact_name }}.jar
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
         name: ${{ env.artifact_name }}-${{ env.sha_short }}
-        path: ./target/${{ env.artifact_name }}.jar
+        path: .${{ github.workspace }}/target/${{ env.artifact_name }}.jar
     - name: Workflow Release Notes
       uses: peter-evans/repository-dispatch@v2
       if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""
