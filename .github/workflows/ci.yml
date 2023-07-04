@@ -59,12 +59,18 @@ jobs:
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
       - name: Download math result for job 2
-        uses: actions/download-artifact@v3
-        with:
-          name: maven-hello-world-${{ env.sha_short }}
+        id: vars
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          curl -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}"\
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            ${{ github.event.client_payload.archive_download_url }}
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: maven-hello-world
+          file: maven-hello-world-${{ env.sha_short }}
           tag: ${{env.toTag}}
