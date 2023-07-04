@@ -68,13 +68,13 @@ jobs:
       id: jar_name
       shell: bash
       run: |
-        ls -al ./target/
+        ls -al /target/
+        mv ./target/*.*:my-app.jar ./target/maven-hello-world.jar
         echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v3
       with:
-        name: maven-hello-world-${{ env.sha_short }}
-        path: ./target/*.*.jar
+        path: ./target/maven-hello-world.jar
     - name: print 1
       id: vars_print1
       env:
