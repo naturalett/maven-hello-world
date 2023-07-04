@@ -69,6 +69,11 @@ jobs:
       shell: bash
       run: |
         mv ./target/*.*:my-app.jar ./target/maven-hello-world.jar
+    - name: Upload math result for job 1
+      uses: actions/upload-artifact@v3
+      with:
+        name: maven-hello-world-${{ env.sha_short }}
+        path: ./target/maven-hello-world.jar
     - name: list artifact
       id: list_artifact
       env:
@@ -96,11 +101,6 @@ jobs:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       run: |
         echo ${{ env.archive_download_url }}
-    - name: Upload math result for job 1
-      uses: actions/upload-artifact@v3
-      with:
-        name: maven-hello-world-${{ env.sha_short }}
-        path: ./target/maven-hello-world.jar
     - name: Workflow release tag
       uses: peter-evans/repository-dispatch@v2
       if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""

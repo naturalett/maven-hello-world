@@ -73,5 +73,5 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: maven-hello-world.jar
+          file: maven-hello-world-${{ env.sha_short }}
           tag: ${{env.toTag}}
