@@ -69,10 +69,13 @@ jobs:
       shell: bash
       run: |
         mv ./target/*.*:my-app.jar ./target/maven-hello-world.jar
+    - name: short commit
+      id: vars
+      run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v3
       with:
-        name: maven-hello-world-${{ github.sha }}
+        name: maven-hello-world-${{ env.sha_short }}
         path: ./target/maven-hello-world.jar
     - name: Workflow release tag
       uses: peter-evans/repository-dispatch@v2

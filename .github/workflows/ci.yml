@@ -55,15 +55,13 @@ jobs:
         with:
           body: ${{steps.github_release.outputs.changelog}}
           tag_name: ${{env.toTag}}
-      - name: Download artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          workflow: ${{ github.event.client_payload.auto_release }}
-          workflow_conclusion: success
+      - name: short commit
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
       - name: Download math result for job 2
         uses: actions/download-artifact@v3
         with:
-          name: maven-hello-world-${{ github.sha }}
+          name: maven-hello-world-${{ env.sha_short }}
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
