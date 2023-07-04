@@ -87,7 +87,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${GITHUB_TOKEN}"\
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            ${{ github.event.client_payload.archive_download_url }}
+            ${{ env.archive_download_url }}
           ls -al .
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
