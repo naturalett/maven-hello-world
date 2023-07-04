@@ -29,9 +29,9 @@ jobs:
       - name: Checkout latest release tag
         id: release_tag
         run: |
-          lastTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo "lastTag=$lastTag" >> $GITHUB_OUTPUT
-          git checkout $lastTag
+          toTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "toTag=$toTag" >> "$GITHUB_ENV"
+          git checkout $toTag
       - name: "Echo github event"
         id: github_event
         run: |
@@ -47,10 +47,11 @@ jobs:
         with:
           configuration: ".github/configs/configuration_repo.json"
           fromTag: ${{env.fromTag}}
+          toTag: ${{env.toTag}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Create Release"
         uses: softprops/action-gh-release@v1
         with:
           body: ${{steps.github_release.outputs.changelog}}
-          tag_name: "${{ steps.release_tag.outputs.lastTag }}"
+          tag_name: ${{env.toTag}}
