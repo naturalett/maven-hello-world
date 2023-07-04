@@ -39,6 +39,8 @@ jobs:
           configuration: ".github/configs/configuration_repo.json"
           fromTag: ${{env.latest_release_tag}}
           toTag: ${{env.toTag}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -46,6 +48,8 @@ jobs:
           tag_name: ${{env.toTag}}
       - name: Artifact Information
         id: artifact_information
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
           echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
           echo "archive_download_url=$(curl -sSL \
@@ -55,6 +59,8 @@ jobs:
             https://api.github.com/repos/naturalett/maven-hello-world/actions/artifacts | jq -r '.artifacts[0].archive_download_url')" >> "$GITHUB_ENV"
       - name: Download Artifact
         id: download_artifact
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
           curl -sSL \
             -H "Accept: application/vnd.github+json" \
