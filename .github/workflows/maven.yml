@@ -86,4 +86,4 @@ jobs:
       if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""
       with:
         event-type: create-release
-        client-payload: '{"auto_release": "${{ steps.release.outputs.auto_release }}"'
+        client-payload: '{"auto_release": "${{ steps.release.outputs.auto_release }}"}'
