@@ -2,7 +2,7 @@
 name: 'CI'
 on:
   repository_dispatch:
-    types: [my-event]
+    types: [create-release]
 
 concurrency:
   group: ${{ github.event.pull_request.number }}-ci
@@ -55,3 +55,12 @@ jobs:
         with:
           body: ${{steps.github_release.outputs.changelog}}
           tag_name: ${{env.toTag}}
+      - name: Download math result for job 2
+        uses: actions/download-artifact@v3
+        with:
+          name: releaseJar
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/*.jar
