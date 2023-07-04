@@ -4,7 +4,7 @@
    <groupId>io.github.naturalett</groupId>
    <artifactId>my-app</artifactId>
    <packaging>jar</packaging>
-   <version>0.2.207</version>
+   <version>0.2.208-SNAPSHOT</version>
    <name>${project.groupId}:${project.artifactId}</name>
    <description>A lightweight Java hello world</description>
    <url>https://github.com/naturalett/maven-hello-world</url>
@@ -81,7 +81,7 @@
       <url>https://github.com/naturalett/maven-hello-world.git</url>
       <connection>scm:git:https://github.com/naturalett/maven-hello-world.git</connection>
       <developerConnection>scm:git:https://github.com/naturalett/maven-hello-world.git</developerConnection>
-      <tag>0.2.207</tag>
+      <tag>HEAD</tag>
    </scm>
    <profiles>
       <profile>
