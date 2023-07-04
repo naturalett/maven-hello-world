@@ -38,7 +38,7 @@ jobs:
       with:
         gpg_private_key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-    - name: Verify whether a release is ready
+    - name: Verify Whether a Release is Ready
       id: release
       shell: bash
       run: |
@@ -47,7 +47,7 @@ jobs:
         else
           echo "auto_release=false" >> $GITHUB_OUTPUT
         fi
-    - name: Release with Maven
+    - name: Release With Maven
       run: |
         mvn -B -U \
           -Pci-cd \
@@ -64,27 +64,28 @@ jobs:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         AUTO_RELEASE_AFTER_CLOSE: ${{ steps.release.outputs.auto_release }}
-    - name: Change Jar name
+  release-preparation:
+    steps:
+    - name: Artifact Name
+      id: artifact_name
+      shell: bash
+      run: |
+        echo "artifact_name=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> "$GITHUB_ENV"
+        echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+    - name: Define Jar Name
       id: jar_name
       shell: bash
       run: |
         ls -al ./target/
-        mv ./target/*.*:my-app.jar ./target/maven-hello-world.jar
-        echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
-    - name: Upload math result for job 1
+        mv ./target/*.*:${{ env.artifact_name }}.jar ./target/${{ env.artifact_name }}.jar
+    - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: maven-hello-world-${{ env.sha_short }}
-        path: ./target/maven-hello-world.jar
-    - name: print 1
-      id: vars_print1
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      run: |
-        echo ${{ env.archive_download_url }}
-    - name: Workflow release tag
+        name: ${{ env.artifact_name }}-${{ env.sha_short }}
+        path: ./target/${{ env.artifact_name }}.jar
+    - name: Workflow Release Notes
       uses: peter-evans/repository-dispatch@v2
       if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""
       with:
-        event-type: create-release
+        event-type: release-notes
         client-payload: '{"auto_release": "${{ steps.release.outputs.auto_release }}"}'
