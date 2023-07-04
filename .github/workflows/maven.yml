@@ -66,6 +66,8 @@ jobs:
         AUTO_RELEASE_AFTER_CLOSE: ${{ steps.release.outputs.auto_release }}
 
   release-preparation:
+    runs-on: ubuntu-latest
+    steps:
     - name: Artifact Name
       id: artifact_name
       shell: bash
