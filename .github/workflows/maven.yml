@@ -78,8 +78,9 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${GITHUB_TOKEN}"\
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/OWNER/REPO/actions/artifacts | jq -r '.artifacts[0].archive_download_url')"  >> $GITHUB_OUTPUT
+          https://api.github.com/repos/naturalett/maven-hello-world/actions/artifacts | jq -r '.artifacts[0].archive_download_url')"  >> $GITHUB_OUTPUT
         echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+        echo $archive_download_url
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v3
       with:
