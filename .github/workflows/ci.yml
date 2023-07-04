@@ -55,12 +55,9 @@ jobs:
         with:
           body: ${{steps.github_release.outputs.changelog}}
           tag_name: ${{env.toTag}}
-      - name: Download math result for job 2
-        uses: actions/download-artifact@v3
-        with:
-          name: releaseJar
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/*.*:*.jar
+          file: maven-hello-world
+          tag: ${{env.toTag}}
