@@ -66,6 +66,7 @@ jobs:
         AUTO_RELEASE_AFTER_CLOSE: ${{ steps.release.outputs.auto_release }}
 
   release-preparation:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Artifact Name
