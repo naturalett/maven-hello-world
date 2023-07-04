@@ -79,7 +79,6 @@ jobs:
           -H "Authorization: Bearer ${GITHUB_TOKEN}"\
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/naturalett/maven-hello-world/actions/artifacts)" >> "$GITHUB_ENV"
-        echo "${{ env.list_artifacts }}"
     - name: short commit
       id: vars
       env:
@@ -91,6 +90,12 @@ jobs:
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/naturalett/maven-hello-world/actions/artifacts | jq -r '.artifacts[0].archive_download_url')" >> "$GITHUB_ENV"
         echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+    - name: print 1
+      id: vars_print1
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      run: |
+        echo ${{ env.list_artifacts }}
         echo ${{ env.archive_download_url }}
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v3
