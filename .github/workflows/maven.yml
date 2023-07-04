@@ -75,26 +75,6 @@ jobs:
       with:
         name: maven-hello-world-${{ env.sha_short }}
         path: ./target/maven-hello-world.jar
-    - name: list artifact
-      id: list_artifact
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      run: |
-        curl -L \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${GITHUB_TOKEN}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/naturalett/maven-hello-world/actions/artifacts
-    - name: short commit
-      id: vars
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      run: |
-        echo "archive_download_url=$(curl -sSL \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${GITHUB_TOKEN}"\
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/naturalett/maven-hello-world/actions/artifacts | jq -r '.artifacts[0].archive_download_url')" >> "$GITHUB_ENV"
     - name: print 1
       id: vars_print1
       env:
@@ -106,4 +86,4 @@ jobs:
       if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""
       with:
         event-type: create-release
-        client-payload: '{"auto_release": "${{ steps.release.outputs.auto_release }}", "archive_download_url": "${{ steps.vars.outputs.archive_download_url }}"}'
+        client-payload: '{"auto_release": "${{ steps.release.outputs.auto_release }}"'
