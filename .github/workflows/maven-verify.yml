@@ -1,0 +1,32 @@
+name: 'Workflow: Maven Verify'
+run-name: 'Workflow Run: Maven Verify'
+on:
+    - 'pull_request'
+    - 'push'
+
+jobs:
+    job-mvn-verify:
+        name: 'Job: Maven Verify'
+        permissions:
+            contents: 'read'
+        runs-on: 'ubuntu-latest'
+        steps:
+            -   id: 'checkout'
+                name: 'Step: Checkout'
+                uses: 'actions/checkout@v4'
+                with:
+                    fetch-depth: 1
+                    persist-credentials: false
+            -   id: 'setup-java'
+                name: 'Step: Set Up Java and Maven'
+                uses: 'actions/setup-java@v3'
+                with:
+                    cache: 'maven'
+                    distribution: 'temurin'
+                    java-version: '11'
+            -   id: 'mvn-verify'
+                name: 'Step: Maven Verify'
+                # -U force updates just to make sure we are using latest dependencies
+                # -B Batch mode (do not ask for user input), just in case
+                # -P activate profile
+                run: 'mvn -U -B -e -ntp -Prelease verify'

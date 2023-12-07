@@ -1,5 +1,5 @@
 # https://github.com/marketplace/actions/release-changelog-builder
-name: 'CI'
+name: 'Github Release'
 on:
   repository_dispatch:
     types: [release-notes]
@@ -8,7 +8,7 @@ concurrency:
   group: ${{ github.event.pull_request.number }}-ci
   cancel-in-progress: true
 
-jobs:  
+jobs:
   release-notes:
     if: github.event.client_payload.auto_release == 'true'
     runs-on: ubuntu-latest
