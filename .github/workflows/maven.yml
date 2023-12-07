@@ -71,15 +71,15 @@ jobs:
     - name: Define Jar Name
       shell: bash
       run: |
-        echo "{{ env.artifact_name }}"
-        echo "{{ env.artifact_version }}"
+        echo "${{ env.artifact_name }}"
+        echo "${{ env.artifact_version }}"
         ls -al ./target/
-        mv ./target/*.*:${{ env.artifact_name }}-{{ env.artifact_version }}.jar ./target/${{ env.artifact_name }}-{{ env.artifact_version }}.jar
+        mv ./target/*.*:${{ env.artifact_name }}-${{ env.artifact_version }}.jar ./target/${{ env.artifact_name }}-${{ env.artifact_version }}.jar
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
         name: ${{ env.artifact_name }}-${{ env.sha_short }}
-        path: ./target/${{ env.artifact_name }}-{{ env.artifact_version }}.jar
+        path: ./target/${{ env.artifact_name }}-${{ env.artifact_version }}.jar
     - name: Workflow Release Notes
       uses: peter-evans/repository-dispatch@v2
       if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""
