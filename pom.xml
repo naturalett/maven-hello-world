@@ -4,7 +4,7 @@
     <groupId>com.chensoul</groupId>
     <artifactId>maven-hello-world</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.6-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>A lightweight Maven hello world</description>
@@ -86,6 +86,14 @@
                             <additionalJOption>-J-Dhttp.agent=maven-javadoc-plugin</additionalJOption>
                         </additionalJOptions>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

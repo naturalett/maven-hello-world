@@ -147,14 +147,3 @@ mvn -B clean deploy -Prelease -Dgpg.passphrase=<PASSPHRASE_GPG> -Dusername=<OSSR
 
 - [@naturalett](https://www.github.com/naturalett)
 - [@chensoul](https://www.github.com/chensoul)
-
-mvn -B -U \
-release:prepare \
-release:perform \
--DreleaseVersion= \
--DdevelopmentVersion= \
-deploy \
--Prelease \
--Dgpg.passphrase=chensoul \
--Dusername=chensoul \
--Dpassword=xwx4TRU_zgn7bun@auf
