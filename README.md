@@ -1,23 +1,21 @@
+# Maven Hello World
 
-# Maven Release
-
-Getting started with Maven Release
-
+Getting started with Maven Release Plugin and Github Action
 
 ## Links
 
 Login to your [sonatype](https://s01.oss.sonatype.org/) account to release the version
 
-| Type | URL                                                                                                     | Description                |
-| :-------- |:--------------------------------------------------------------------------------------------------------| :------------------------- |
+| Type     | URL             | Description       |
+|:---------|:----------------|:------------------|
 | Snapshot | [sonatype](https://s01.oss.sonatype.org/content/repositories/snapshots/com/chensoul/maven-hello-world/) | Snapshot versions |
-| Release | [sonatype](https://repo.maven.apache.org/maven2/com/chensoul/maven-hello-world/)                        | Release versions |
-| Release | [central-sonatype](https://central.sonatype.com/artifact/com.chensoul/maven-hello-world/0.0.1/versions) | Release versions |
-
+| Release  | [sonatype](https://repo.maven.apache.org/maven2/com/chensoul/maven-hello-world/) | Release versions  |
+| Release  | [central-sonatype](https://central.sonatype.com/artifact/com.chensoul/maven-hello-world/0.0.1/versions) | Release versions  |
 
 ## Documentation
 
-* Well explained blog of [How to Publish Artifacts to Maven Central](https://dzone.com/articles/how-to-publish-artifacts-to-maven-central)
+* Well explained blog
+  of [How to Publish Artifacts to Maven Central](https://dzone.com/articles/how-to-publish-artifacts-to-maven-central)
 * Your Sonatype account [link](https://s01.oss.sonatype.org/)
 * Your Jira ticket login [link](https://issues.sonatype.org/)
 * Github action to import gpg:
@@ -25,14 +23,15 @@ Login to your [sonatype](https://s01.oss.sonatype.org/) account to release the v
     * [link2](https://github.com/hashicorp/ghaction-import-gpg)
     * [link3](https://github.com/crazy-max/ghaction-import-gpg/tree/master)
 
-
 ## Secrets
+
 * **MAVEN_GPG_PRIVATE_KEY** - Take it from the private.gpg
 * **OSSRH_USERNAME** - Created [here](https://issues.sonatype.org/)
 * **OSSRH_TOKEN** - Created [here](https://issues.sonatype.org/)
 * **MAVEN_GPG_PASSPHRASE** - Create [here](https://central.sonatype.org/publish/requirements/gpg/#generating-a-key-pair)
     * This passphrase and your private key are all that is needed to sign artifacts with your signature.
-* **TOKEN** - Github token
+* **GITHUB_TOKEN** - Github token
+
 ## Demo
 
 How do you release a version?
@@ -47,6 +46,7 @@ Manually:\
 Automatically:\
 Push to Github will create a release and a snapshot but it won't publish the release.\
 Snapshot will be available through [here](https://central.sonatype.com/artifact/com.chensoul/maven-hello-world/0.0.1)
+
 ```bash
 <dependency>
     <groupId>com.chenspoul</groupId>
@@ -55,11 +55,12 @@ Snapshot will be available through [here](https://central.sonatype.com/artifact/
 </dependency>
 ```
 
-
 ## Maven in 5 Minutes
+
 Follow after the documentation [here](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) to start your first maven.
 
 Expend your `./src/main/java/com/mycompany/app/App.java` with:
+
 ```bash
 package com.mycompany.app;
 
@@ -71,15 +72,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-public class App 
-{
+public class App {
     public static void main( String[] args ) throws IOException {
-
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/", new MyHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
-
     }
 
     static class MyHandler implements HttpHandler {
@@ -95,15 +93,16 @@ public class App
 }
 ```
 
-
 ## GPG
 
 After generating gpg key following by [here](https://central.sonatype.org/publish/requirements/gpg/#generating-a-key-pair)
+
 ```bash
 gpg --gen-key
 ```
 
 You can list the local key that you created:
+
 ```bash
 gpg --list-secret-keys --keyid-format=long
 ```
@@ -113,24 +112,35 @@ Then you can export the private key to your local machine in order to upload it 
 ```bash
 gpg --armor --export-secret-keys <YOUR_KEY> > private.gpg
 ```
-* YOUR_KEY='long number'...B720
+
+* YOUR_KEY='long number'
 
 ## Local commands
 
 Release + Snapshot:
+
 ```bash
-mvn -X -B release:clean release:prepare release:perform -Dusername=<GITHUB_USERNAME> -Dpassword=<GITHUB_TOKEN>
+mvn -B release:clean release:prepare release:perform
 ```
 
-Bump version:
+Update version:
+
 ```bash
-mvn -X -B build-helper:parse-version versions:set -DnewVersion=0.0.2-SNAPSHOT versions:commit -Dusername=<GITHUB_USERNAME> -Dpassword=<GITHUB_TOKEN> 
+mvn -B build-helper:parse-version versions:set -DnewVersion=0.0.2-SNAPSHOT versions:commit 
+```
+
+Create new branch with next version(it won't update the working copy version)
+
+```bash
+mvn -B release:branch -DbranchName=my-branch -DupdateBranchVersions=true -DupdateWorkingCopyVersions=false
 ```
 
 GPG to sign:
+
 ```bash
-mvn -X -B clean javadoc:jar source:jar deploy  -Pci-cd -Dgpg.passphrase="<PASSPHRASE_GPG>" -Dusername=<OSSRH_USERNAME> -Dpassword=<OSSRH_TOKEN>
+mvn -B clean javadoc:jar source:jar deploy -Prelease -Dgpg.passphrase="<PASSPHRASE_GPG>" -Dusername=<OSSRH_USERNAME> -Dpassword=<OSSRH_TOKEN>
 ```
+
 ## Authors
 
 - [@naturalett](https://www.github.com/naturalett)

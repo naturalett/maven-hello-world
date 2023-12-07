@@ -1,36 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.chensoul</groupId>
     <artifactId>maven-hello-world</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.13-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>A lightweight Java hello world</description>
-    <url>https://github.com/chensoul/maven-hello-world</url>
+    <inceptionYear>2023</inceptionYear>
+    <url>https://github.com/chensoul/${project.artifactId}</url>
 
     <scm>
         <url>https://github.com/chensoul/${project.artifactId}.git</url>
         <connection>scm:git:https://github.com/chensoul/${project.artifactId}.git</connection>
         <developerConnection>scm:git:https://github.com/chensoul/${project.artifactId}.git</developerConnection>
-        <tag>my-branch</tag>
+        <tag>HEAD</tag>
     </scm>
 
-    <licenses>
-        <license>
-            <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
+    <organization>
+        <name>ChenSoul™</name>
+        <url>https://blog.chensoul.com/</url>
+    </organization>
 
     <developers>
         <developer>
             <id>chensoul</id>
             <name>chensoul</name>
             <email>chensoul.eth@gmail.com</email>
+            <url>https://blog.chensoul.com</url>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+8</timezone>
         </developer>
     </developers>
+
+    <licenses>
+        <license>
+            <comments>The Apache License, Version 2.0</comments>
+            <distribution>repo</distribution>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -58,7 +73,7 @@
                         <execution>
                             <id>attach-sources</id>
                             <goals>
-                                <goal>jar</goal>
+                                <goal>jar-no-fork</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -67,11 +82,24 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.6.0</version>
+                    <configuration>
+                        <additionalJOptions combine.children="append">
+                            <additionalJOption>-J-Dhttp.agent=maven-javadoc-plugin</additionalJOption>
+                        </additionalJOptions>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.1</version>
+                    <configuration>
+                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                    </configuration>
                     <executions>
                         <execution>
-                            <id>attach-javadocs</id>
+                            <id>default</id>
                             <goals>
-                                <goal>jar</goal>
+                                <goal>perform</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -80,20 +108,19 @@
         </pluginManagement>
     </build>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <profiles>
         <profile>
-            <id>ci-cd</id>
+            <id>release</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
             <build>
                 <plugins>
                     <plugin>
@@ -106,22 +133,6 @@
                             <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
                             <autoReleaseAfterClose>${env.AUTO_RELEASE_AFTER_CLOSE}</autoReleaseAfterClose>
                         </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <configuration>
-                            <tagNameFormat>v@{project.version}</tagNameFormat>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>default</id>
-                                <goals>
-                                    <goal>perform</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -142,6 +153,18 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>
