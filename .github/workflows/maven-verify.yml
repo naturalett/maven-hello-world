@@ -29,4 +29,4 @@ jobs:
                 # -U force updates just to make sure we are using latest dependencies
                 # -B Batch mode (do not ask for user input), just in case
                 # -P activate profile
-                run: 'mvn -U -B -e -ntp -Prelease verify'
+                run: 'mvn -U -B -e -ntp verify'

@@ -1,5 +1,7 @@
 # https://github.com/marketplace/actions/release-changelog-builder
-name: 'Github Release'
+name: 'Workflow: Github Release'
+run-name: 'Workflow Run: Github Release'
+
 on:
   repository_dispatch:
     types: [release-notes]

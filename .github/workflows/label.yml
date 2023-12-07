@@ -1,5 +1,7 @@
 # https://github.com/marketplace/actions/pr-labeler-based-on-multiple-rules
-name: "Pull Request Labeler"
+name: 'Workflow: Pull Request Labeler'
+run-name: 'Workflow Run: Pull Request Labeler'
+
 on:
   pull_request:
     types:
