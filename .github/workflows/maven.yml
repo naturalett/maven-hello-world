@@ -71,8 +71,7 @@ jobs:
     - name: Define Jar Name
       shell: bash
       run: |
-        echo "${{ env.artifact_name }}"
-        echo "${{ env.artifact_version }}"
+        echo "${{ env.artifact_name }} ${{ env.artifact_version }}"
         ls -al ./target/
         mv ./target/*.*:${{ env.artifact_name }}-${{ env.artifact_version }}.jar ./target/${{ env.artifact_name }}-${{ env.artifact_version }}.jar
     - name: Upload Artifact
