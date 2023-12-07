@@ -4,7 +4,7 @@
     <groupId>com.chensoul</groupId>
     <artifactId>maven-hello-world</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.6-SNAPSHOT</version>
+    <version>0.0.7-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>A lightweight Maven hello world</description>
