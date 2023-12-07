@@ -4,6 +4,6 @@ WORKDIR /app
 RUN mvn clean install
 
 FROM openjdk:17.0.1-jdk-slim-buster
-COPY --from=build /app/target/my-app.jar /my-app.jar
-ENTRYPOINT ["java", "-jar","/my-app.jar"]
+COPY --from=build /app/target/maven-hello-world.jar /app.jar
+ENTRYPOINT ["java", "-jar","/app.jar"]
 EXPOSE 8080

@@ -8,11 +8,11 @@ Getting started with Maven Release
 
 Login to your [sonatype](https://s01.oss.sonatype.org/) account to release the version
 
-| Type | URL     | Description                |
-| :-------- | :------- | :------------------------- |
-| Snapshot | [sonatype](https://s01.oss.sonatype.org/content/repositories/snapshots/io/github/naturalett/my-app/) | Snapshot versions |
-| Release | [sonatype](https://repo.maven.apache.org/maven2/io/github/naturalett/my-app/) | Release versions |
-| Release | [central-sonatype](https://central.sonatype.com/artifact/io.github.naturalett/my-app/1.0.0/versions) | Release versions |
+| Type | URL                                                                                                     | Description                |
+| :-------- |:--------------------------------------------------------------------------------------------------------| :------------------------- |
+| Snapshot | [sonatype](https://s01.oss.sonatype.org/content/repositories/snapshots/com/chensoul/maven-hello-world/) | Snapshot versions |
+| Release | [sonatype](https://repo.maven.apache.org/maven2/com/chensoul/maven-hello-world/)                        | Release versions |
+| Release | [central-sonatype](https://central.sonatype.com/artifact/com.chensoul/maven-hello-world/0.0.1/versions) | Release versions |
 
 
 ## Documentation
@@ -39,19 +39,19 @@ How do you release a version?
 
 Manually:\
 &nbsp;&nbsp;&nbsp;1. Check the version in the pom.xml\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **<version>0.2.26-SNAPSHOT</version>**\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **<version>0.0.1-SNAPSHOT</version>**\
 &nbsp;&nbsp;&nbsp;2. Go to Github action -> Run workflow\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **Release:** 0.2.26\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **Snapshot:** 0.2.27-SNAPSHOT
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **Release:** 0.0.1\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* **Snapshot:** 0.0.2-SNAPSHOT
 
 Automatically:\
 Push to Github will create a release and a snapshot but it won't publish the release.\
-Snapshot will be available through [here](https://central.sonatype.com/artifact/io.github.naturalett/my-app/1.0.3)
+Snapshot will be available through [here](https://central.sonatype.com/artifact/com.chensoul/maven-hello-world/0.0.1)
 ```bash
 <dependency>
-    <groupId>io.github.naturalett</groupId>
-    <artifactId>my-app</artifactId>
-    <version>1.0.3</version>
+    <groupId>com.chenspoul</groupId>
+    <artifactId>maven-hello-world</artifactId>
+    <version>0.0.1</version>
 </dependency>
 ```
 
@@ -124,7 +124,7 @@ mvn --batch-mode release:clean release:prepare release:perform -Dusername=natura
 
 Bump version:
 ```bash
-mvn --batch-mode build-helper:parse-version versions:set -DnewVersion=0.2.0-SNAPSHOT versions:commit -Dusername=naturalett -Dpassword=<GITHUB_TOKEN> -s settings.xml -X
+mvn --batch-mode build-helper:parse-version versions:set -DnewVersion=0.0.2-SNAPSHOT versions:commit -Dusername=naturalett -Dpassword=<GITHUB_TOKEN> -s settings.xml -X
 ```
 
 GPG to sign:
@@ -134,4 +134,5 @@ mvn -X -B clean javadoc:jar source:jar deploy -Dgpg.passphrase="<PASSPHRASE_GPG>
 ## Authors
 
 - [@naturalett](https://www.github.com/naturalett)
+- [@chensoul](https://www.github.com/chensoul)
 
