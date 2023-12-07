@@ -100,7 +100,7 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>3.0.1</version>
                     <configuration>
-                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                        <tagNameFormat>${project.artifactId}-@{project.version}</tagNameFormat>
                     </configuration>
                     <executions>
                         <execution>

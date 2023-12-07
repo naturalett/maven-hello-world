@@ -75,11 +75,11 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ env.artifact_name }}-${{ env.sha_short }}
+        name: ${{ env.artifact_name }}-${{ env.artifact_version }}
         path: ./target/${{ env.artifact_name }}-${{ env.artifact_version }}.jar
     - name: Workflow Release Notes
       uses: peter-evans/repository-dispatch@v2
       if: ${{ github.event.inputs.releaseVersion }} != "" && ${{ github.event.inputs.developmentVersion }} != ""
       with:
         event-type: release-notes
-        client-payload: '{"auto_release": "${{ env.auto_release }}", "artifact": "${{ env.artifact_name }}-${{ env.sha_short }}"}'
+        client-payload: '{"auto_release": "${{ env.auto_release }}", "artifact": "${{ env.artifact_name }}-${{ env.artifact_version }}"}'
