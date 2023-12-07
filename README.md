@@ -6,10 +6,10 @@ Getting started with Maven Release Plugin and Github Action
 
 Login to your [sonatype](https://s01.oss.sonatype.org/) account to release the version
 
-| Type     | URL             | Description       |
-|:---------|:----------------|:------------------|
+| Type     | URL                                                                                                     | Description       |
+|:---------|:--------------------------------------------------------------------------------------------------------|:------------------|
 | Snapshot | [sonatype](https://s01.oss.sonatype.org/content/repositories/snapshots/com/chensoul/maven-hello-world/) | Snapshot versions |
-| Release  | [sonatype](https://repo.maven.apache.org/maven2/com/chensoul/maven-hello-world/) | Release versions  |
+| Release  | [sonatype](https://repo.maven.apache.org/maven2/com/chensoul/maven-hello-world/)                        | Release versions  |
 | Release  | [central-sonatype](https://central.sonatype.com/artifact/com.chensoul/maven-hello-world/0.0.1/versions) | Release versions  |
 
 ## Documentation
@@ -57,7 +57,8 @@ Snapshot will be available through [here](https://central.sonatype.com/artifact/
 
 ## Maven in 5 Minutes
 
-Follow after the documentation [here](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) to start your first maven.
+Follow after the documentation [here](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) to
+start your first maven.
 
 Expend your `./src/main/java/com/mycompany/app/App.java` with:
 
@@ -95,7 +96,8 @@ public class App {
 
 ## GPG
 
-After generating gpg key following by [here](https://central.sonatype.org/publish/requirements/gpg/#generating-a-key-pair)
+After generating gpg key following
+by [here](https://central.sonatype.org/publish/requirements/gpg/#generating-a-key-pair)
 
 ```bash
 gpg --gen-key
@@ -117,28 +119,28 @@ gpg --armor --export-secret-keys <YOUR_KEY> > private.gpg
 
 ## Local commands
 
-Release + Snapshot:
+Release and deploy to maven repository:
 
 ```bash
 mvn -B release:clean release:prepare release:perform
 ```
 
-Update version:
+Update pom version:
 
 ```bash
 mvn -B build-helper:parse-version versions:set -DnewVersion=0.0.2-SNAPSHOT versions:commit 
 ```
 
-Create new branch with next version(it won't update the working copy version)
+Create new branch with next version, it won't update the working copy version:
 
 ```bash
 mvn -B release:branch -DbranchName=my-branch -DupdateBranchVersions=true -DupdateWorkingCopyVersions=false
 ```
 
-GPG to sign:
+GPG to sign and deploy to sonatype repository using release profile:
 
 ```bash
-mvn -B clean javadoc:jar source:jar deploy -Prelease -Dgpg.passphrase="<PASSPHRASE_GPG>" -Dusername=<OSSRH_USERNAME> -Dpassword=<OSSRH_TOKEN>
+mvn -B clean deploy -Prelease -Dgpg.passphrase="<PASSPHRASE_GPG>" -Dusername=<OSSRH_USERNAME> -Dpassword=<OSSRH_TOKEN>
 ```
 
 ## Authors
