@@ -48,6 +48,10 @@ jobs:
         else
           echo "auto_release=false" >> $GITHUB_ENV
         fi
+    - name: Artifact Version
+      shell: bash
+      run: |
+        echo "artifact_version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_ENV"
     - name: Release With Maven
       run: |
         mvn -B -U \
@@ -67,7 +71,6 @@ jobs:
       shell: bash
       run: |
         echo "artifact_name=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> "$GITHUB_ENV"
-        echo "artifact_version=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_ENV"
     - name: Define Jar Name
       shell: bash
       run: |
