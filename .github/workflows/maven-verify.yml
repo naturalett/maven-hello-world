@@ -1,5 +1,5 @@
-name: 'Workflow: Maven Verify'
-run-name: 'Workflow Run: Maven Verify'
+name: 'Maven Verify'
+
 on:
     - 'pull_request'
     - 'push'

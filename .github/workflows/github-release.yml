@@ -1,6 +1,5 @@
 # https://github.com/marketplace/actions/release-changelog-builder
-name: 'Workflow: Github Release'
-run-name: 'Workflow Run: Github Release'
+name: 'Github Release'
 
 on:
   repository_dispatch:

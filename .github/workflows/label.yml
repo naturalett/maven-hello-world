@@ -1,6 +1,5 @@
 # https://github.com/marketplace/actions/pr-labeler-based-on-multiple-rules
-name: 'Workflow: Pull Request Labeler'
-run-name: 'Workflow Run: Pull Request Labeler'
+name: 'Pull Request Labeler'
 
 on:
   pull_request:
@@ -8,13 +7,12 @@ on:
       - reopened
       - opened
 
-
 jobs:
   branch-label:
     runs-on: ubuntu-latest
     steps:
       - name: Create Labels Based Branch
-        uses: srvaroa/labeler@v0.8
+        uses: srvaroa/labeler@master
         with:
           config_path: ".github/configs/branch_label.yml"
         env:
@@ -50,7 +48,7 @@ jobs:
           fi
       - name: Create Labels Based Files
         if: env.trigger_files_labels != 'true'
-        uses: srvaroa/labeler@v0.8
+        uses: srvaroa/labeler@master
         with:
           config_path: ".github/configs/files_label.yml"
         env:

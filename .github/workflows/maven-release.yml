@@ -1,5 +1,4 @@
-name: 'Workflow: Maven Release'
-run-name: 'Workflow Run: Maven Release'
+name: 'Maven Release'
 
 on:
   workflow_dispatch:
