@@ -119,6 +119,13 @@ gpg --armor --export-secret-keys <YOUR_KEY> > private.gpg
 
 ## Local commands
 
+Check your maven settings ～/.m2/settings.xml:
+
+```bash
+
+```bash
+```
+
 Release and deploy to maven repository:
 
 ```bash
