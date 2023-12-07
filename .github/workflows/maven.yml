@@ -70,12 +70,8 @@ jobs:
       shell: bash
       run: |
         echo "artifact_name=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> "$GITHUB_ENV"
-    - name: Define Jar Name
-      shell: bash
-      run: |
         echo "${{ env.artifact_name }} ${{ env.artifact_version }}"
         ls -al ./target/
-        mv ./target/${{ env.artifact_name }}-${{ env.artifact_version }}.jar ./target/${{ env.artifact_name }}-${{ env.artifact_version }}.jar
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
