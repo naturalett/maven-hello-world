@@ -119,17 +119,17 @@ gpg --armor --export-secret-keys <YOUR_KEY> > private.gpg
 
 Release + Snapshot:
 ```bash
-mvn --batch-mode release:clean release:prepare release:perform -Dusername=naturalett -Dpassword=<GITHUB_TOKEN> -s settings.xml -X
+mvn -X -B release:clean release:prepare release:perform -Dusername=chensoul -Dpassword=<GITHUB_TOKEN>
 ```
 
 Bump version:
 ```bash
-mvn --batch-mode build-helper:parse-version versions:set -DnewVersion=0.0.2-SNAPSHOT versions:commit -Dusername=naturalett -Dpassword=<GITHUB_TOKEN> -s settings.xml -X
+mvn -X -B build-helper:parse-version versions:set -DnewVersion=0.0.2-SNAPSHOT versions:commit -Dusername=chensoul -Dpassword=<GITHUB_TOKEN> 
 ```
 
 GPG to sign:
 ```bash
-mvn -X -B clean javadoc:jar source:jar deploy -Dgpg.passphrase="<PASSPHRASE_GPG>" -Pci-cd -s settings.xml
+mvn -X -B clean javadoc:jar source:jar deploy  -Pci-cd -Dgpg.passphrase="<PASSPHRASE_GPG>" -Dusername=chensoul -Dpassword=<GITHUB_TOKEN>
 ```
 ## Authors
 
