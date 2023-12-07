@@ -14,7 +14,6 @@
         <url>https://github.com/chensoul/${project.artifactId}.git</url>
         <connection>scm:git:https://github.com/chensoul/${project.artifactId}.git</connection>
         <developerConnection>scm:git:https://github.com/chensoul/${project.artifactId}.git</developerConnection>
-        <tag>maven-hello-world-0.0.3</tag>
     </scm>
 
     <licenses>
