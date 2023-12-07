@@ -57,10 +57,10 @@ jobs:
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
            deploy \
           -Prelease \
-          -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }} \
-          -Dusername=${{ secrets.OSSRH_USERNAME }} \
-          -Dpassword=${{ secrets.OSSRH_TOKEN }}
+          -Dgpg.passphrase=${{ secrets.MAVEN_GPG_PASSPHRASE }}
       env:
+        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
         AUTO_RELEASE_AFTER_CLOSE: ${{ env.auto_release }}
     - name: Artifact Name
       shell: bash
