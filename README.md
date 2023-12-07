@@ -140,7 +140,7 @@ mvn -B release:branch -DbranchName=my-branch -DupdateBranchVersions=true -Dupdat
 GPG to sign and deploy to sonatype repository using release profile:
 
 ```bash
-mvn -B clean deploy -Prelease -Dgpg.passphrase="<PASSPHRASE_GPG>" -Dusername=<OSSRH_USERNAME> -Dpassword=<OSSRH_TOKEN>
+mvn -B clean deploy -Prelease -Dgpg.passphrase=<PASSPHRASE_GPG> -Dusername=<OSSRH_USERNAME> -Dpassword=<OSSRH_TOKEN>
 ```
 
 ## Authors
