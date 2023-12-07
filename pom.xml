@@ -4,7 +4,7 @@
     <groupId>com.chensoul</groupId>
     <artifactId>maven-hello-world</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.6-SNAPSHOT</version>
+    <version>0.0.7-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>A lightweight Java hello world</description>
@@ -14,7 +14,7 @@
         <url>https://github.com/chensoul/${project.artifactId}.git</url>
         <connection>scm:git:https://github.com/chensoul/${project.artifactId}.git</connection>
         <developerConnection>scm:git:https://github.com/chensoul/${project.artifactId}.git</developerConnection>
-      <tag>my-branch</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <licenses>
